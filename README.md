@@ -24,7 +24,7 @@
 | Missing access control on an oracle-report / task handler | Lending protocol (Chainlink CRE integration) | Unauthorized state updates → fund risk | **Verified** |
 | Aave-integration interest accounting flaw | Lending protocol | Theft of accrued interest | **Verified** |
 | Oracle feed omitting `min(market, canonical)` price | Liquity-V2 fork (LST collateral) | Collateral over-valuation → over-mint of stablecoin → insolvency / depeg | **PoC passing** |
-| Migration-completion recognized via a forgeable public flag | Liquid-staking migration (L2) | Front-runnable strand of migrating funds (temporary freeze) | **Submitted** |
+| Forgeable migration-completion check (front-runnable) | **Polygon** — sPOL staking migration (L2) | Front-runnable strand of a user's migrating stake (temporary freeze) | **High · disclosed** |
 | Resume-on-frozen-oracle-price | Lending protocol | Protocol insolvency | **Submitted (2 passing PoCs)** |
 | Vault share-price manipulation via stale vesting state | Yield vault (ERC-4626 / boring-vault) | Theft of unvested yield + DoS | **PoC passing** |
 | Sandbox-validator bypass → RCE | OSS AI/ML codebase | Remote code execution (CVSS 9.8) | **Submitted** |
