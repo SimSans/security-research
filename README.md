@@ -68,4 +68,6 @@ Foundry (forge / cast / anvil), Halmos (symbolic), fuzzing & invariant suites, m
 
 Pre-launch reviews, focused audits, fork-based PoC development, fix verification. Payment in USDC / ETH. → **[services.md](services.md)**
 
+**Early-stage and small teams especially welcome.** I like helping teams find and fix bugs *before* they ship, not just flagship protocols. Tell me what you're building and I'll work with your scope and your budget.
+
 **Contact:** simeon.petkov2110@gmail.com · GitHub [@SimSans](https://github.com/SimSans)

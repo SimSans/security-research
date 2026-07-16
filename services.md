@@ -4,8 +4,11 @@ Independent smart-contract security reviews. I hunt the high-impact bugs that dr
 
 **Most "auditors" are developers who write contracts. I'm a security researcher who breaks them.**
 
+> **Early-stage and small teams especially welcome.** A lot of small protocols ship without a real security review, not because they don't care, but because the big audit firms are booked out or out of reach. I'd genuinely rather help you find and fix the bug before you launch than read the post-mortem after. Tell me what you're building and where you're at, and I'll work with your scope and your budget to get real eyes on your code. Helping small teams ship safely is work I actually want to do, not a consolation prize.
+
 ## Engagements
 
+- **Small / early-stage protocol review**: building something new and can't line up a big-name audit yet? I'll do a real manual review scoped to what you have and what you can spend, so you ship safer instead of shipping blind.
 - **Pre-launch security review**: a full manual audit of your protocol before you ship, with a written report and PoCs for every Critical/High.
 - **Focused review**: a single contract, module, or a specific concern (a new integration, an oracle wiring, a migration path) reviewed deeply and fast.
 - **Fork-based PoC development**: you have a suspected issue; I build the runnable exploit (or prove it isn't one) on a mainnet fork wired to your real dependencies.
