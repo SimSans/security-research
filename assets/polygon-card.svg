@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0F1C"/>
+      <stop offset="1" stop-color="#16223C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="0" y="0" width="10" height="720" fill="#38BDF8"/>
+  <text x="80" y="120" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" letter-spacing="4" fill="#7C8BA5">INDEPENDENT WEB3 SECURITY RESEARCH</text>
+
+  <text x="80" y="225" font-family="DejaVu Sans, Arial, sans-serif" font-size="60" font-weight="bold" fill="#FFFFFF">Polygon</text>
+  <text x="80" y="285" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" fill="#CBD5E1">sPOL Staking Migration</text>
+
+  <rect x="80" y="320" width="232" height="52" rx="26" fill="#F59E0B"/>
+  <text x="196" y="355" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1A1206">HIGH SEVERITY</text>
+
+  <text x="80" y="455" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" fill="#E2E8F0">&#8226;  Forgeable migration-completion check &#8212; front-runnable</text>
+  <text x="80" y="510" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" fill="#E2E8F0">&#8226;  Impact: a user&#8217;s migrating stake can be stranded (temporary freeze)</text>
+  <text x="80" y="565" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" fill="#E2E8F0">&#8226;  Verified with a fork-based PoC &#8212; responsibly disclosed</text>
+
+  <line x1="80" y1="630" x2="1200" y2="630" stroke="#24314F" stroke-width="2"/>
+  <text x="80" y="675" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" fill="#7C8BA5">github.com/SimSans/security-research</text>
+  <text x="1200" y="675" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" fill="#38BDF8">Smart Contract Security</text>
+</svg>

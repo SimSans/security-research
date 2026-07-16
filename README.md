@@ -1,81 +1,71 @@
-# Smart Contract Security Research — Portfolio
+# Smart Contract Security Research
 
-**Independent Web3 security researcher.** I hunt high-impact vulnerabilities in live DeFi protocols — the kind that lead to fund theft, protocol insolvency, and permanent freezes — and I prove them with runnable proof-of-concept exploits, not hand-waving.
+**Independent Web3 security researcher.** I hunt high-impact vulnerabilities in live DeFi protocols — the kind that lead to fund theft, protocol insolvency, and permanent freezes — and I prove them with runnable proof-of-concept exploits, not hand-waving. When code is solid, I prove *that*, too.
 
-**simsans** · [github.com/simsans](https://github.com/simsans) · simeon.petkov2110@gmail.com
+**Simeon Petkov** · GitHub [@SimSans](https://github.com/SimSans) · simeon.petkov2110@gmail.com
 
 ---
 
 ## At a glance
 
-- **30+ protocols reviewed** end-to-end across DeFi lending, perps, yield vaults, stablecoins, cross-chain bridges, and liquid staking — including flagship protocols securing hundreds of millions to billions in TVL.
-- **Multiple verified and submitted findings up to Critical severity** — oracle manipulation, access-control gaps, cross-chain accounting drift, vault share-price manipulation, protocol insolvency.
-- **Multi-ecosystem / multi-language:** Solidity (EVM), Rust (Solana / Cosmos / Substrate), Clarity (Stacks), Move, Vyper.
-- **Every serious finding ships with a passing Foundry / fork PoC.** If I can't prove it, I don't claim it.
+- **[50+ protocols reviewed](coverage/protocols-reviewed.md)** end-to-end — DeFi lending, perps, yield vaults, CDP stablecoins, AMMs, cross-chain bridges, liquid staking, account abstraction — including flagship scopes securing hundreds of millions to billions in TVL ($15.5M, $10M, $7.5M, $5M+ bounty programs).
+- **[Verified findings up to Critical](findings/)** — oracle over-valuation → insolvency, permissionless zero-slippage sandwich, leveraged-vault collateral double-spend, Byzantine-proposer counterparty selection, vault share-price manipulation, EIP-214 STATICCALL violation. Every serious one ships with a passing PoC.
+- **[Original vulnerability research](research/)** — two forward-invented attack primitives with runnable PoCs: **[The Mirage](research/the-mirage.md)** (EIP-1153 transient-storage simulation divergence) and **[GOLEM](research/golem-agent-hijack.md)** (on-chain data as prompt injection against AI agents).
+- **Multi-ecosystem / multi-language:** Solidity (EVM + all major L2s), Rust (Solana / reth / Chia), Go (Cosmos / Geth / Injective), Move (Sui / Aptos), Clarity (Stacks), Vyper.
+- **If I can't prove it, I don't claim it.** Every finding is backed by a PoC I ran myself.
+
+---
+
+## Navigate
+
+| Section | What's in it |
+|---|---|
+| 🔬 **[Research](research/)** | Original attack primitives I invented + weaponized, with runnable PoCs. The Mirage · GOLEM. |
+| 🎯 **[Findings](findings/)** | High-impact vulnerabilities in live/pre-launch protocols, by class (responsible-disclosure framing). |
+| 🏆 **[Contest Reports](contest-reports/)** | Public, independently-verifiable competition submissions (Code4rena, etc.). |
+| 🧭 **[Methodology](methodology/)** | How I work — the audit workflow, the hunt-the-diff thesis, multi-agent orchestration, verification discipline. |
+| 📊 **[Coverage](coverage/protocols-reviewed.md)** | The full matrix of 50+ protocols reviewed, by ecosystem. |
+| 🤝 **[Work With Me](services.md)** | Engagements, deliverables, and how to start. |
 
 ---
 
 ## Selected findings
 
-> Presented by vulnerability class and protocol type. Specific protocol names are shared on request and only where responsible-disclosure timelines allow.
+> Presented by vulnerability class and protocol type. Most of these are or were **live** — in a private bounty program, in coordinated disclosure, or affecting funds with no public fix — so specific protocol names are shared privately on request, and published openly once resolved. The one named entry is an already-public duplicate. This is deliberate: publishing a weaponized write-up of a live-unfixed bug endangers users. See [findings/](findings/) for the full set.
 
-| Vulnerability class | Protocol type | Impact | Status |
+| Vulnerability class | Protocol type | Impact | Proof |
 |---|---|---|---|
-| Missing access control on an oracle-report / task handler | Lending protocol (Chainlink CRE integration) | Unauthorized state updates → fund risk | **Verified** |
-| Aave-integration interest accounting flaw | Lending protocol | Theft of accrued interest | **Verified** |
-| Oracle feed omitting `min(market, canonical)` price | Liquity-V2 fork (LST collateral) | Collateral over-valuation → over-mint of stablecoin → insolvency / depeg | **PoC passing** |
-| Forgeable migration-completion check (front-runnable) | **Polygon** — sPOL staking migration (L2) | Front-runnable strand of a user's migrating stake (temporary freeze) | **High · disclosed** |
-| Resume-on-frozen-oracle-price | Lending protocol | Protocol insolvency | **Submitted (2 passing PoCs)** |
-| Vault share-price manipulation via stale vesting state | Yield vault (ERC-4626 / boring-vault) | Theft of unvested yield + DoS | **PoC passing** |
-| Sandbox-validator bypass → RCE | OSS AI/ML codebase | Remote code execution (CVSS 9.8) | **Submitted** |
-
-_Protocols tied to currently-undisclosed findings are named privately on request, and publicly once the finding is resolved and disclosed._
-
-### Selected protocols reviewed
-
-Independent security reviews / vulnerability assessments of major protocols, including:
-
-**Optimism (OP Stack)** · **GMX** · **Ethena** · **Sky (MakerDAO)** · **Beanstalk** · **Olympus** · **0x** · **The Graph** · **Enzyme Finance** · **Gearbox** · **Kamino** · **Lombard** · **ether.fi** · **Compound** · **Chainlink**
-
-These were deep reviews (multi-module analysis, custom fuzzing, fork-based testing) that confirmed the contracts were sound and documented latent risks. A clear, well-argued "no critical issues" verdict is a deliverable in its own right — it's what lets a team ship with confidence.
+| [Oracle omits `min(market, canonical)` on an LST collateral](findings/lst-oracle-missing-min.md) | Liquity-V2 CDP fork | Over-valuation → over-mint → insolvency / depeg | PoC passing |
+| [Permissionless zero-slippage compound → atomic sandwich](findings/autocompounder-zero-slippage-sandwich.md) | ve(3,3) DEX | Theft of 88–96% of managed-veNFT yield | PoC passing (3/3) |
+| [Leveraged-vault collateral double-spend](findings/leveraged-vault-shield-insolvency.md) | Leveraged LST vault | Real collateral withdrawn while shield stays committed → insolvency | Verified |
+| [Byzantine proposer picks the deleveraging counterparty](findings/proposer-chosen-counterparty.md) | Cosmos perps DEX | Force-close a chosen solvent user at the bankruptcy price | Go chain-test passing (−$5,000) |
+| Vault share-price manipulation via stale vesting state | ERC-4626 boring-vault | Theft of unvested yield + DoS | Fork PoC passing |
+| [Forgeable migration-completion check](findings/polygon-spol-migration.md) | **Polygon** — sPOL migration | Front-runnable stranding of migrating stake | Disclosed (public / duplicate) |
 
 ---
 
-## Coverage & depth
+## What I specialize in — the bugs checklists and scanners *miss*
 
-**Protocol types:** DeFi lending (Compound/Aave forks), perpetuals & RWA perps, ERC-4626 / boring-vault yield vaults, CDP stablecoins, liquid staking, cross-chain bridges & messaging (CCIP / LayerZero / OFT), AMMs, restaking.
+- **Economic-game / attacker-sequence exploits** — flash-loan-funded, multi-step, cross-protocol composition, MEV/ordering.
+- **Fork-regressions** — the guard a fork deleted, the collateral it mispriced, the integration it rewired. Nearly every bug I land is in the diff. ([Hunt the Diff](methodology/hunt-the-diff.md).)
+- **Oracle valuation gaps** and vault share-price manipulation.
+- **Access-control & authorization seams** across module boundaries and lifecycle/migration windows.
+- **Cross-chain accounting drift** and reconciliation desync.
 
-**Ecosystems:** Ethereum & L2s (Arbitrum, Optimism, Base, Ink), Solana, Cosmos, Polkadot/Substrate, Stacks (Clarity), Move chains.
+## Methodology in one line
 
-**What I specialize in** — the bugs checklists and static tools *miss*:
-- Economic-game / attacker-sequence exploits (flash-loan-funded, multi-step, cross-protocol composition).
-- Cross-chain accounting drift and reconciliation desync.
-- Oracle valuation gaps and share-price manipulation.
-- Access-control and authorization seams across module boundaries.
-- First-depositor / donation / rounding edge cases with real token-unit impact.
+> Name the promise the protocol exists to keep. Model the attacker's wishlist. Enumerate the real levers. Hunt the *sequence* that turns levers into profit. Prove it on a fork wired to the real world — positive attacker P&L or it doesn't ship.
 
----
-
-## Methodology
-
-1. **Name the protocol's core promise** — the one invariant it exists to guarantee.
-2. **Model the attacker's wishlist** — concrete fund-moving goals, not abstract "what-ifs."
-3. **Enumerate the full toolset** — flash loans, the real deployed dependencies, MEV/ordering, and weird states (empty pool, first depositor, mid-migration, epoch boundaries).
-4. **Hunt the sequence** that links a lever combination to a profitable outcome.
-5. **Prove it on a mainnet fork** wired to the real deployed world — positive attacker P&L or it doesn't ship.
-
-Every engagement ends with a clear written report: each finding gets severity, root cause, impact, a runnable PoC, and a concrete fix.
-
----
+Full detail in [methodology/](methodology/).
 
 ## Tooling
 
-Foundry (forge / cast / anvil), Halmos (symbolic), fuzzing & invariant suites, mainnet-fork PoCs, Slither, plus hand-written exploit harnesses. Comfortable reading & writing Solidity, Rust, Clarity, Move, Vyper.
+Foundry (forge / cast / anvil), Halmos (symbolic), fuzzing & invariant suites, mainnet-fork PoCs, Slither, plus hand-written exploit harnesses and multi-agent analysis pipelines. Comfortable reading and writing Solidity, Rust, Go, Clarity, Move, and Vyper.
 
 ---
 
 ## Work with me
 
-Independent audits, pre-launch security reviews, fork-based PoC development, and fix verification. Payment in USDC / ETH.
+Pre-launch reviews, focused audits, fork-based PoC development, fix verification. Payment in USDC / ETH. → **[services.md](services.md)**
 
-**Contact:** simeon.petkov2110@gmail.com · GitHub [@simsans](https://github.com/simsans)
+**Contact:** simeon.petkov2110@gmail.com · GitHub [@SimSans](https://github.com/SimSans)
