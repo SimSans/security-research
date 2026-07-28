@@ -9,7 +9,7 @@
 ## At a glance
 
 - **[50+ protocols reviewed](coverage/protocols-reviewed.md)** end-to-end across DeFi lending, perps, yield vaults, CDP stablecoins, AMMs, cross-chain bridges, liquid staking, and account abstraction, including flagship scopes securing hundreds of millions to billions in TVL ($15.5M, $10M, $7.5M, $5M+ bounty programs).
-- **[Verified findings up to Critical](findings/)**: oracle over-valuation → insolvency, permissionless zero-slippage sandwich, leveraged-vault collateral double-spend, Byzantine-proposer counterparty selection, vault share-price manipulation, EIP-214 STATICCALL violation. Every serious one ships with a passing PoC.
+- **[Verified findings up to Critical](findings/)**: redemption-escrow reentrancy on an alt-VM L1, recovered-balance double-count → vault insolvency, oracle over-valuation → insolvency, permissionless zero-slippage sandwich, leveraged-vault collateral double-spend, Byzantine-proposer counterparty selection, vault share-price manipulation, stale/zero-price liquidation, EIP-214 STATICCALL violation. Every serious one ships with a passing PoC.
 - **[Original vulnerability research](research/)**: two forward-invented attack primitives, each with a proof-of-concept: **[The Mirage](research/the-mirage.md)** (EIP-1153 transient-storage simulation divergence, 6 passing tests, held under coordinated disclosure) and **[GOLEM](research/golem-agent-hijack.md)** (on-chain data as prompt injection against AI agents).
 - **Multi-ecosystem / multi-language:** Solidity (EVM + all major L2s), Rust (Solana / reth / Chia), Go (Cosmos / Geth / Injective), Move (Sui / Aptos), Clarity (Stacks), Vyper.
 - **If I can't prove it, I don't claim it.** Every finding is backed by a PoC I ran myself.
@@ -35,6 +35,8 @@
 
 | Vulnerability class | Protocol type | Impact | Proof |
 |---|---|---|---|
+| [Redemption-escrow reentrancy (CEI violation)](findings/redemption-escrow-reentrancy.md) | Alt-VM L1 CDP + StableSwap (~$16M TVL) | Theft from a commingled redemption escrow | Code + interpreter-source verified |
+| [Recovered-balance double-count → share inflation](findings/recovered-balance-double-count-insolvency.md) | Leveraged ERC-4626 loop vault (Morpho fork) | Permanent ~2x inflation → insolvency | Foundry PoC passing (200 vs 100 backing) |
 | [Oracle omits `min(market, canonical)` on an LST collateral](findings/lst-oracle-missing-min.md) | Liquity-V2 CDP fork | Over-valuation → over-mint → insolvency / depeg | PoC passing |
 | [Permissionless zero-slippage compound → atomic sandwich](findings/autocompounder-zero-slippage-sandwich.md) | ve(3,3) DEX | Theft of 88-96% of managed-veNFT yield | PoC passing (3/3) |
 | [Leveraged-vault collateral double-spend](findings/leveraged-vault-shield-insolvency.md) | Leveraged LST vault | Real collateral withdrawn while shield stays committed → insolvency | Verified |

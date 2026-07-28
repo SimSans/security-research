@@ -21,6 +21,11 @@ Most of these findings are, or were, **live**: submitted to a private bounty pro
 | 7 | Resume-on-frozen-oracle-price | CDP lending | Protocol insolvency on stale/frozen feed | 2 passing PoCs | Submitted · class-level |
 | 8 | `STATICCALL` is not inert, stateful precompile mutates state under EIP-214 read-only context | EVM-compatible Cosmos L1 | Breaks a load-bearing EVM safety invariant (reentrancy guards, view checks) chain-wide | Reproduced on mainnet with two `eth_call`s | Reported · class-level |
 | 9 | [Forgeable migration-completion check, front-runnable](polygon-spol-migration.md) | **Polygon**: sPOL staking migration (L2) | Front-runnable strand of a user's migrating stake (temporary freeze) | Reasoned + disclosed | **Public** (disclosed / duplicate) |
+| 10 | [Redemption-escrow reentrancy (CEI violation, commingled singleton)](redemption-escrow-reentrancy.md) | Alt-VM L1 CDP + StableSwap (~$16M TVL) | Theft from a shared redemption escrow; attacker-controlled token callback + a VM that doesn't revert on the underflow a guard relies on | Code + interpreter-source verified | Disclosed · class-level |
+| 11 | [Recovered-balance double-count → share inflation](recovered-balance-double-count-insolvency.md) | Leveraged ERC-4626 loop vault (Morpho fork) | Permanent ~2x share-price inflation → vault insolvency → depositor loss | Foundry PoC passing (totalAssets 200 vs 100 backing) | Disclosed · class-level |
+| 12 | Stale / zero-price liquidation seizes full collateral | Lending / CDP (multiple targets) | A frozen or zero oracle lets a liquidator seize all collateral for ~1 wei of debt | Code + reasoning; disclosed | Disclosed · class-level |
+| 13 | ERC-4626 staked-token `totalShares` divergence | Liquid-staking receipt vault | Share-accounting divergence → mispricing of the receipt token | Verified against code paths | Disclosed · class-level |
+| 14 | Order-cancel strands funds in stateless zap routers | Perp / vault GMX-integration | Two Highs: cancelled GMX orders leave user funds permanently locked in stateless zap routers | Verified against code paths | Disclosed-pending-contact · class-level |
 
 ## What ties them together
 
