@@ -6,6 +6,14 @@
 
 ---
 
+## Work with me
+
+I provide independent AI-agent testing, technical investigation, debugging, and verification for difficult software problems.
+
+**Current offer:** fixed-scope AI-agent diagnostic and adversarial evaluation.
+
+→ [AI Agent Assessment & Technical Services](./github-services-ai.md)
+
 ## At a glance
 
 - **[50+ protocols reviewed](coverage/protocols-reviewed.md)** end-to-end across DeFi lending, perps, yield vaults, CDP stablecoins, AMMs, cross-chain bridges, liquid staking, and account abstraction, including flagship scopes securing hundreds of millions to billions in TVL ($15.5M, $10M, $7.5M, $5M+ bounty programs).
